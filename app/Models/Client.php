@@ -12,4 +12,12 @@ class Client extends Model
     {
         return $this->hasMany(appointment::class);
    }
+
+   protected $fillable = [
+    'nombre', 'email', 'contraseña',
+];
+    protected $hidden=[
+        "password"
+    ];
+
 }
