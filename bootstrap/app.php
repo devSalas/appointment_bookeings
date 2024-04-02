@@ -10,6 +10,10 @@ return Application::configure(basePath: dirname(__DIR__))
         commands: __DIR__.'/../routes/console.php',
         health: '/up',
         api: __DIR__.'/../routes/api.php'
+<<<<<<< HEAD
+=======
+
+>>>>>>> 1ae2e2ea46912042afba22a1c30e453872ddf8c8
     )
     ->withMiddleware(function (Middleware $middleware) {
         //
