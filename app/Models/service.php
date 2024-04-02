@@ -8,12 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class service extends Model
 {
     use HasFactory;
+
+    protected $guarded=[];
     
     public function workers(){
-        return this->belognsToMany("App\Models\Worker");
+        return $this->belognsToMany("App\Models\Worker");
     }
 
     public function appointments(){
-        return this->belognsToMany("App\Models\appointment");
+        return $this->belognsToMany("App\Models\appointment");
     }
 }
