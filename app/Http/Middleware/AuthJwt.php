@@ -25,10 +25,18 @@ class AuthJwt
 
        $split=explode(" ",$authorizationHeader);
        $token = $split[1];
-       $decode=$this->jwtdecoded($token);
+       try {
+        $decode=$this->jwtdecoded($token);
+       } catch (\Throwable $th) {
+        return response()->json(['token' => "you dont have token or has been expired "]);
+       }
 
        if (!$decode) return response()->json(['token' => "you dont have token or has been expired "]);
-       
+
+       $request->merge([
+        "id"=>$decode->userid
+       ]);
+
         return $next($request);
     }
     

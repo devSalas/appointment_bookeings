@@ -13,7 +13,7 @@ class ClientController extends Controller
 {   
 
     //
-    public function create($request){
+    public function create(ClientRequest $request){
 
         $user=new Client;
         $user->name=$request->name;
@@ -38,12 +38,17 @@ class ClientController extends Controller
         if (!Hash::check($request->password, $user->password)) {
             return response()->json(['error' => 'Incorrect password.'], 401);
         }
+        $jwt=$this->jwtencoded($user);
 
         return response()->json(['token' => $jwt]);
     }
 
+
     private function jwtencoded($user){
         $key = 'example_key';
+
+        
+
         $payload = [
             'iss' => 'http://localhost:8000',
             'aud' => 'http://example.com',
