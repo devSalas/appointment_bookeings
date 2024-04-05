@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Hash;
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
 
+use Carbon\Carbon;
+
 class ClientController extends Controller
 {   
 
@@ -47,13 +49,15 @@ class ClientController extends Controller
     private function jwtencoded($user){
         $key = 'example_key';
 
-        
+        $iat=time();
+        $exp=$iat+300000;
 
         $payload = [
             'iss' => 'http://localhost:8000',
             'aud' => 'http://example.com',
-            'iat' => 1356999524,
-            'nbf' => 1357000000,
+            'iat' => $iat,
+            'nbf' => $iat,
+            'exp' => $exp,
             'userid'=>$user->id,
         ];
 

@@ -27,14 +27,17 @@ class AuthJwt
        $token = $split[1];
        try {
         $decode=$this->jwtdecoded($token);
-       } catch (\Throwable $th) {
-        return response()->json(['token' => "you dont have token or has been expired "]);
-       }
+    } catch (\Firebase\JWT\SignatureInvalidException $e) {
+        return response()->json(['token' => "you dont have token invalido","th"=>$th]);
+      } catch (\Firebase\JWT\ExpiredException $e) {
+        return response()->json(['token' => "you dont have  has been expired ","th"=>$th]);
+      }
+
 
        if (!$decode) return response()->json(['token' => "you dont have token or has been expired "]);
 
        $request->merge([
-        "id"=>$decode->userid
+        "id"=>$decode->userid,
        ]);
 
         return $next($request);

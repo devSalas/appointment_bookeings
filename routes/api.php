@@ -24,5 +24,5 @@ Route::delete('/services/{id}',[ServiceController::class,'destroy']);
 
 
 Route::post('/register', [ClientController::class,"create"]);
-Route::post('/login', [ClientController::class,"login"]); 
+Route::post('/login', [ClientController::class,"login"]);
 
