@@ -20,4 +20,10 @@ class appointment extends Model
         return this->belognsTo("App\Models\Client");
     }
 
+    protected $fillable = [
+        'details', 'date', 'start_hour',"end_hour","client_id"
+        ];
+
+    
+
 }

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\AppointmentController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ClientController;
@@ -22,7 +23,26 @@ Route::put('/services/{id}', [ServiceController::class, 'update']);
 
 Route::delete('/services/{id}',[ServiceController::class,'destroy']);
 
+Route::get('/appointment', [AppointmentController::class, 'index']);
 
-Route::post('/register', [ClientController::class,"create"]);
+Route::get('/appointment/{id}', [AppointmentController::class, 'show']);
+
+Route::post('/appointment', [AppointmentController::class, 'store']);
+
+Route::put('/appointment/{id}', [AppointmentController::class, 'update']);
+
+Route::delete('/appointment/{id}',[AppointmentController::class,'destroy']);
+
+Route::get('/Client', [ClientController::class, 'index']);
+
+Route::get('/Client/{id}', [ClientController::class, 'show']);
+
+Route::post('/Client', [ClientController::class, 'store']);
+
+Route::put('/Client/{id}', [ClientController::class, 'update']);
+
+Route::delete('/Client/{id}',[ClientController::class,'destroy']);
+
+
 Route::post('/login', [ClientController::class,"login"]);
 

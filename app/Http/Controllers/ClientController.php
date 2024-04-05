@@ -9,24 +9,69 @@ use Illuminate\Support\Facades\Hash;
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
 
-use Carbon\Carbon;
 
 class ClientController extends Controller
 {   
 
     //
-    public function create(ClientRequest $request){
+
+    public function index()
+    {
+        $Clients = Client::all();
+        return response()->json(['error' => false, 'data' => $Clients, 'message' => 'all users']);
+    }
+
+    public function store(ClientRequest $request){
 
         $user=new Client;
         $user->name=$request->name;
         $user->email=$request->email;
         $user->password=Hash::make($request->password,["rounds"=>12]);
         $user->address=$request->address;
+        $user->image="https://www.testhouse.net/wp-content/uploads/2021/11/default-avatar.jpg";
 
         $user->save();
 
         return response()->json($user);
     }
+
+    public function show(string $id): JsonResponse
+    {
+
+        $oneClient = Client::find($id);
+
+        if (!$oneClient) {
+            return response()->json(['error' => true, 'message' => 'User no encontrado'], 404);
+        }
+
+        return response()->json(['error' => false, 'data' => $oneClient, 'message' => 'Un User encontrado'], 200);
+    }
+
+
+    public function update(ClientRequest $request, string $id): JsonResponse
+    {
+
+        $Client = Client::find($id);
+
+        if (!$Client) {
+
+            return response()->json(['error' => true, 'message' => 'User no encontrado'], 404);
+        }
+
+        $Client->update($request->all());
+
+        $Client->save();
+
+
+        return response()->json(['error' => false, 'data' => $Client, 'message' => 'User actualizado correctamente'], 200);
+    }
+
+    public function destroy(string $id)
+    {
+       $Client = Client::destroy($id);
+       return response()->json(['error'=>false,'message'=>'eliminado satisfactoriamente']);
+    }
+
 
     public function login(ClientRequest $request){
         
